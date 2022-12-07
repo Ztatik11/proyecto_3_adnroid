@@ -9,31 +9,26 @@ function perfiles({navigation,route}) {
     {
       name:'Alvaro',
       surname:'Carrasco',
-      phone:982919213,
       age:22
     },
     {
       name:'Pepe',
       surname:'Carrasco',
-      phone:982919213,
       age:45
     },
     {
       name:'Maria',
       surname:'Carrasco',
-      phone:982919213,
       age:30
     },
     {
       name:'Ana',
       surname:'Carrasco',
-      phone:982919213,
       age:27
     },
     {
       name:'Daniel',
       surname:'Carrasco',
-      phone:982919213,
       age:15
     }
   ]
@@ -43,7 +38,7 @@ function perfiles({navigation,route}) {
     
     <View>
        <Button
-        onPress={()=>navigation.navigate("Perfil",{persona:item})}
+        onPress={()=>navigation.navigate("Perfil",{nombre:item.name,apellido:item.surname,edad:item.edad})}
         title={item.name}
         />
       <Text style={styles.title}>{item.name}</Text>
@@ -93,11 +88,11 @@ export default function App() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
   
-              if (route.name === 'Home') {
+              if (route.name === 'perfiles') {
                 iconName = focused
                   ? 'ios-information-circle'
                   : 'ios-information-circle-outline';
-              } else if (route.name === 'Settings') {
+              } else if (route.name === 'informacion') {
                 iconName = focused ? 'ios-list' : 'ios-list-outline';
               }
   
@@ -108,8 +103,8 @@ export default function App() {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="Home" component={perfiles} />
-          <Tab.Screen name="Settings" component={info} />
+          <Tab.Screen name="perfiles" component={perfiles} />
+          <Tab.Screen name="informacion" component={info} />
         </Tab.Navigator>
       </NavigationContainer>
     );
