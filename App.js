@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function perfiles({navigation,route}) {
+function Perfiles({navigation}) {
   const DATA = [
     {
       name:'Alvaro',
@@ -41,7 +41,6 @@ function perfiles({navigation,route}) {
         onPress={()=>navigation.navigate("Perfil",{nombre:item.name,apellido:item.surname,edad:item.edad})}
         title={item.name}
         />
-      <Text style={styles.title}>{item.name}</Text>
     </View>
   )
   return (
@@ -50,22 +49,29 @@ function perfiles({navigation,route}) {
         data={DATA}
         renderItem={renderItem} 
         keyExtractor={item=>item.id}/>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Perfil"> 
-          <Stack.Screen name="Perfil" component={Perfil}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+      
     </View>
   );
 }
 
-function perfil({navigation,route}) {
-  
+function pantallas() {
+  const Stack = createNativeStackNavigator();
   return (
-    
+    <NavigationContainer>
+        <Stack.Navigator initialRouteName="Perfiles">
+          <Stack.Screen name="Perfiles" component={Perfiles}/>
+          <Stack.Screen name="Perfil" component={Perfil}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+  );
+}
+
+function Perfil({route}) {
+  const{username,age}=route.params;
+  return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>{route.item.name}</Text>
-      <Text>{route.item.age}</Text>
+      <Text>{username}</Text>
+      <Text>{age}</Text>
     </View>
   );
 }
@@ -88,7 +94,7 @@ export default function App() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
   
-              if (route.name === 'perfiles') {
+              if (route.name === 'pantallas') {
                 iconName = focused
                   ? 'ios-information-circle'
                   : 'ios-information-circle-outline';
@@ -103,7 +109,7 @@ export default function App() {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="perfiles" component={perfiles} />
+          <Tab.Screen name="pantallas" component={pantallas} />
           <Tab.Screen name="informacion" component={info} />
         </Tab.Navigator>
       </NavigationContainer>
