@@ -1,29 +1,30 @@
 import * as React from 'react';
-import { Text, View, Buttom } from 'react-native';
+import { Text, View, FlatList,Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function Perfiles({navigation}) {
   const DATA = [
     {
       name:'Alvaro',
-      surname:'Carrasco',
+      surname:'Gutierrez',
       age:22
     },
     {
       name:'Pepe',
-      surname:'Carrasco',
+      surname:'Dominguez',
       age:45
     },
     {
       name:'Maria',
-      surname:'Carrasco',
+      surname:'Burns',
       age:30
     },
     {
       name:'Ana',
-      surname:'Carrasco',
+      surname:'Bejarano',
       age:27
     },
     {
@@ -54,32 +55,31 @@ function Perfiles({navigation}) {
   );
 }
 
-function pantallas() {
-  const Stack = createNativeStackNavigator();
-  return (
-    <NavigationContainer>
-        <Stack.Navigator initialRouteName="Perfiles">
-          <Stack.Screen name="Perfiles" component={Perfiles}/>
-          <Stack.Screen name="Perfil" component={Perfil}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-  );
-}
-
 function Perfil({route}) {
-  const{username,age}=route.params;
+  const{nombre,apellido,edad}=route.params;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>{username}</Text>
-      <Text>{age}</Text>
+      <Text>{nombre}</Text>
+      <Text>{apellido}</Text>
+      <Text>{edad}</Text>
     </View>
   );
 }
 
-function info({navigation,route}) {
-  
+function Pantallas() {
+  const Stack = createNativeStackNavigator();
   return (
-    
+    <Stack.Navigator initialRouteName="Perfiles">
+      <Stack.Screen name="Perfiles" component={Perfiles}/>
+      <Stack.Screen name="Perfil" component={Perfil}/>
+    </Stack.Navigator>
+  );
+}
+
+
+
+function Info() {
+  return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Esto es facil de ejecutar</Text>
     </View>
@@ -109,8 +109,8 @@ export default function App() {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="pantallas" component={pantallas} />
-          <Tab.Screen name="informacion" component={info} />
+          <Tab.Screen name="pantallas" component={Pantallas} />
+          <Tab.Screen name="informacion" component={Info} />
         </Tab.Navigator>
       </NavigationContainer>
     );
